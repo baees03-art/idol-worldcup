@@ -87,7 +87,7 @@ h2 {
     padding: 20px;
     cursor: pointer;
     transition: all 0.3s ease;
-    width: 300px;
+    width: 350px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
@@ -100,31 +100,40 @@ h2 {
     box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
 }
 
-.game-card img {
+.img-container {
     width: 100%;
     height: 200px;
-    object-fit: cover;
     border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    background-color: #000;
+}
+
+.img-container img, .img-container iframe {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: none;
 }
 
 .game-card p {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: 600;
     margin-top: 15px;
     margin-bottom: 15px;
 }
 
 .listen-btn {
-    background-color: #FF0000; /* YouTube Red */
+    background-color: #FF0000;
     color: white;
     border: none;
-    padding: 8px 16px;
-    border-radius: 20px;
+    padding: 10px 20px;
+    border-radius: 25px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 0.9rem;
+    font-size: 1rem;
     transition: background-color 0.2s;
-    width: 80%;
+    width: 90%;
 }
 
 .listen-btn:hover {
@@ -142,11 +151,11 @@ h2 {
 }
 
 .winner-card {
-    width: 400px;
+    width: 450px;
 }
 
-.winner-card img {
-    height: 300px;
+.winner-card .img-container {
+    height: 280px;
 }
 
 #ranking {

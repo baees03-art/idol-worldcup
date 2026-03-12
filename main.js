@@ -26,6 +26,12 @@ function resetGame() {
     nextRoundItems = [];
     currentData = [];
     roundItems = [];
+    stopAllPlayers();
+}
+
+function stopAllPlayers() {
+    const iframes = document.querySelectorAll('iframe');
+    iframes.forEach(iframe => iframe.remove());
 }
 
 categoryButtons.forEach(button => {
@@ -91,21 +97,44 @@ function displayNextMatch() {
 function createGameCard(item) {
     const card = document.createElement('div');
     card.className = 'game-card';
-    card.innerHTML = `<img src="${item.img}" alt="${item.name}"><p>${item.name}</p>`;
     
-    // Add Listen button for songs
-    if (currentCategory === 'songs' && item.link) {
+    const imgContainer = document.createElement('div');
+    imgContainer.className = 'img-container';
+    imgContainer.innerHTML = `<img src="${item.img}" alt="${item.name}">`;
+    
+    const nameP = document.createElement('p');
+    nameP.textContent = item.name;
+    
+    card.appendChild(imgContainer);
+    card.appendChild(nameP);
+    
+    // Add Listen button for songs (In-place YouTube player)
+    if (currentCategory === 'songs' && item.vid) {
         const listenBtn = document.createElement('button');
         listenBtn.className = 'listen-btn';
-        listenBtn.innerHTML = '🎧 들어보기';
+        listenBtn.innerHTML = '🎧 바로 들어보기';
         listenBtn.addEventListener('click', (e) => {
             e.stopPropagation(); // Prevent selecting the card
-            window.open(item.link, '_blank');
+            
+            // If already playing, don't re-add
+            if (imgContainer.querySelector('iframe')) return;
+            
+            // Stop other players
+            stopAllPlayers();
+            
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://www.youtube.com/embed/${item.vid}?autoplay=1`;
+            iframe.allow = "autoplay; encrypted-media";
+            iframe.setAttribute('allowfullscreen', '');
+            imgContainer.innerHTML = '';
+            imgContainer.appendChild(iframe);
+            listenBtn.innerHTML = '⏸ 재생 중';
         });
         card.appendChild(listenBtn);
     }
 
     card.addEventListener('click', () => {
+        stopAllPlayers();
         nextRoundItems.push(item);
         displayNextMatch();
     });
@@ -118,15 +147,31 @@ function displayWinner(winner) {
     
     const card = document.createElement('div');
     card.className = 'game-card winner-card';
-    card.innerHTML = `<img src="${winner.img}" alt="${winner.name}"><p>${winner.name}</p>`;
     
-    if (currentCategory === 'songs' && winner.link) {
+    const imgContainer = document.createElement('div');
+    imgContainer.className = 'img-container';
+    imgContainer.innerHTML = `<img src="${winner.img}" alt="${winner.name}">`;
+    
+    const nameP = document.createElement('p');
+    nameP.textContent = winner.name;
+    
+    card.appendChild(imgContainer);
+    card.appendChild(nameP);
+    
+    if (currentCategory === 'songs' && winner.vid) {
         const listenBtn = document.createElement('button');
         listenBtn.className = 'listen-btn';
-        listenBtn.innerHTML = '🎧 들어보기';
+        listenBtn.innerHTML = '🎧 바로 들어보기';
         listenBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            window.open(winner.link, '_blank');
+            if (imgContainer.querySelector('iframe')) return;
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://www.youtube.com/embed/${winner.vid}?autoplay=1`;
+            iframe.allow = "autoplay; encrypted-media";
+            iframe.setAttribute('allowfullscreen', '');
+            imgContainer.innerHTML = '';
+            imgContainer.appendChild(iframe);
+            listenBtn.innerHTML = '⏸ 재생 중';
         });
         card.appendChild(listenBtn);
     }

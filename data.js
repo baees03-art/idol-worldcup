@@ -1,89 +1,182 @@
-// Helper to generate image URLs
-const getImg = (category, name) => `https://picsum.photos/seed/${category}_${encodeURIComponent(name)}/300/200`;
-
-// Helper to generate YouTube search links
-const getMusicLink = (name) => `https://www.youtube.com/results?search_query=${encodeURIComponent(name)}`;
-
-// Top real items to ensure quality
-const topSongs = [
-    { name: '밤양갱 - 비비(BIBI)' }, { name: 'Love wins all - 아이유(IU)' }, { name: 'To. X - 태연(TAEYEON)' },
-    { name: '첫 만남은 계획대로 되지 않아 - TWS' }, { name: 'EASY - LE SSERAFIM' }, { name: 'Fate - (여자)아이들' },
-    { name: 'Supernova - aespa' }, { name: 'How Sweet - NewJeans' }, { name: 'Super Shy - NewJeans' },
-    { name: 'Seven - Jungkook' }, { name: 'Magnetic - ILLIT' }, { name: 'SPOT! - ZICO (feat. JENNIE)' },
-    { name: 'SHEESH - BABYMONSTER' }, { name: 'Midas Touch - KISS OF LIFE' }, { name: 'Hype Boy - NewJeans' },
-    { name: 'Ditto - NewJeans' }, { name: 'OMG - NewJeans' }, { name: 'Attention - NewJeans' },
-    { name: 'I AM - IVE' }, { name: 'Kitsch - IVE' }, { name: 'Baddie - IVE' }, { name: 'Love Lee - AKMU' },
-    { name: 'Fry\'s Dream - AKMU' }, { name: 'Spicy - aespa' }, { name: 'Drama - aespa' },
-    { name: 'Wife - (여자)아이들' }, { name: 'Queencard - (여자)아이들' }, { name: 'Tomboy - (여자)아이들' },
-    { name: 'Perfect Night - LE SSERAFIM' }, { name: 'Smart - LE SSERAFIM' }, { name: 'Sticky - KISS OF LIFE' }
+const songs = [
+    { id: 's1', name: '밤양갱 - 비비', vid: 'm6p_zZ9u67k', img: 'https://i.ytimg.com/vi/m6p_zZ9u67k/hqdefault.jpg' },
+    { id: 's2', name: 'Love wins all - 아이유', vid: '0Zq7huH-L-A', img: 'https://i.ytimg.com/vi/0Zq7huH-L-A/hqdefault.jpg' },
+    { id: 's3', name: 'Supernova - aespa', vid: 'nFYwcjvUNu4', img: 'https://i.ytimg.com/vi/nFYwcjvUNu4/hqdefault.jpg' },
+    { id: 's4', name: 'How Sweet - NewJeans', vid: 'Q3K0TOv78Is', img: 'https://i.ytimg.com/vi/Q3K0TOv78Is/hqdefault.jpg' },
+    { id: 's5', name: 'Magnetic - ILLIT', vid: 'Vk5-c_v4gMU', img: 'https://i.ytimg.com/vi/Vk5-c_v4gMU/hqdefault.jpg' },
+    { id: 's6', name: 'SPOT! - ZICO (feat. JENNIE)', vid: 'o9V-8t5A9Y4', img: 'https://i.ytimg.com/vi/o9V-8t5A9Y4/hqdefault.jpg' },
+    { id: 's7', name: 'Fate - (여자)아이들', vid: 'fB6p-f8e-h8', img: 'https://i.ytimg.com/vi/fB6p-f8e-h8/hqdefault.jpg' },
+    { id: 's8', name: '첫 만남은 계획대로 되지 않아 - TWS', vid: 'hV697u22W94', img: 'https://i.ytimg.com/vi/hV697u22W94/hqdefault.jpg' },
+    { id: 's9', name: 'To. X - 태연', vid: 'm_p-eT7q9vE', img: 'https://i.ytimg.com/vi/m_p-eT7q9vE/hqdefault.jpg' },
+    { id: 's10', name: 'EASY - LE SSERAFIM', vid: 'bNKXwquv9W4', img: 'https://i.ytimg.com/vi/bNKXwquv9W4/hqdefault.jpg' },
+    { id: 's11', name: 'Midas Touch - KISS OF LIFE', vid: 'o3Y6j0v_l0c', img: 'https://i.ytimg.com/vi/o3Y6j0v_l0c/hqdefault.jpg' },
+    { id: 's12', name: 'Super Shy - NewJeans', vid: 'ArmDp-zijuc', img: 'https://i.ytimg.com/vi/ArmDp-zijuc/hqdefault.jpg' },
+    { id: 's13', name: 'SHEESH - BABYMONSTER', vid: '2wA_b79vI7M', img: 'https://i.ytimg.com/vi/2wA_b79vI7M/hqdefault.jpg' },
+    { id: 's14', name: 'Seven - Jungkook', vid: 'QU9c0053UAU', img: 'https://i.ytimg.com/vi/QU9c0053UAU/hqdefault.jpg' },
+    { id: 's15', name: 'Sticky - KISS OF LIFE', vid: 'I7_X9v6f9hE', img: 'https://i.ytimg.com/vi/I7_X9v6f9hE/hqdefault.jpg' },
+    { id: 's16', name: 'Hype Boy - NewJeans', vid: '11cta61v070', img: 'https://i.ytimg.com/vi/11cta61v070/hqdefault.jpg' },
+    { id: 's17', name: 'Ditto - NewJeans', vid: 'pSUydWEqKwE', img: 'https://i.ytimg.com/vi/pSUydWEqKwE/hqdefault.jpg' },
+    { id: 's18', name: 'Love Lee - AKMU', vid: 'EozGZ7pL0Cg', img: 'https://i.ytimg.com/vi/EozGZ7pL0Cg/hqdefault.jpg' },
+    { id: 's19', name: 'Smart - LE SSERAFIM', vid: 'mR_X8vN9vXk', img: 'https://i.ytimg.com/vi/mR_X8vN9vXk/hqdefault.jpg' },
+    { id: 's20', name: 'Drama - aespa', vid: 'D8VEhcPeSlc', img: 'https://i.ytimg.com/vi/D8VEhcPeSlc/hqdefault.jpg' },
+    { id: 's21', name: 'Small Girl - 이영지 (feat. 도경수)', vid: 'm6v-bT-H-oY', img: 'https://i.ytimg.com/vi/m6v-bT-H-oY/hqdefault.jpg' },
+    { id: 's22', name: '인사 - 범진', vid: 'm_v-H9_q9_U', img: 'https://i.ytimg.com/vi/m_v-H9_q9_U/hqdefault.jpg' },
+    { id: 's23', name: '숲 - 최유리', vid: 'm6v-H_p-eTk', img: 'https://i.ytimg.com/vi/m6v-H_p-eTk/hqdefault.jpg' },
+    { id: 's24', name: 'Perfect Night - LE SSERAFIM', vid: 'hV6v-B_nNK8', img: 'https://i.ytimg.com/vi/hV6v-B_nNK8/hqdefault.jpg' },
+    { id: 's25', name: 'Welcome to the Show - DAY6', vid: 'm6v-H_p-e-U', img: 'https://i.ytimg.com/vi/m6v-H_p-e-U/hqdefault.jpg' },
+    { id: 's26', name: '천상연 - 이창섭', vid: 'm6v-B_n-NK8', img: 'https://i.ytimg.com/vi/m6v-B_n-NK8/hqdefault.jpg' },
+    { id: 's27', name: '비의 랩소디 - 임재현', vid: 'm6v-H_p-e-M', img: 'https://i.ytimg.com/vi/m6v-H_p-e-M/hqdefault.jpg' },
+    { id: 's28', name: '에피소드 - 이무진', vid: 'm6v-B_n-NK9', img: 'https://i.ytimg.com/vi/m6v-B_n-NK9/hqdefault.jpg' },
+    { id: 's29', name: '그대만 있다면 - 너드커넥션', vid: 'm6v-H_p-e-L', img: 'https://i.ytimg.com/vi/m6v-H_p-e-L/hqdefault.jpg' },
+    { id: 's30', name: '꿈 - 태연', vid: 'm6v-B_n-NK0', img: 'https://i.ytimg.com/vi/m6v-B_n-NK0/hqdefault.jpg' },
+    { id: 's31', name: 'Love 119 - RIIZE', vid: 'm6v-H_p-e-K', img: 'https://i.ytimg.com/vi/m6v-H_p-e-K/hqdefault.jpg' },
+    { id: 's32', name: 'T.B.H - QWER', vid: 'm6v-B_n-NK1', img: 'https://i.ytimg.com/vi/m6v-B_n-NK1/hqdefault.jpg' }
 ];
 
-const topDramas = [
-    { name: '눈물의 여왕' }, { name: '선재 업고 튀어' }, { name: '더 글로리' }, { name: '무빙' },
-    { name: '이상한 변호사 우영우' }, { name: '재벌집 막내아들' }, { name: '일타 스캔들' }, { name: '사랑의 불시착' },
-    { name: '도깨비' }, { name: '태양의 후예' }, { name: '응답하라 1988' }, { name: '이태원 클라쓰' },
-    { name: '빈센조' }, { name: '나의 아저씨' }, { name: '스물다섯 스물하나' }, { name: '시그널' },
-    { name: '미스터 션샤인' }, { name: '슬기로운 의사생활' }, { name: '부부의 세계' }, { name: '비밀의 숲' },
-    { name: '킹덤' }, { name: '오징어 게임' }, { name: '수리남' }, { name: 'D.P.' },
-    { name: '스위트홈' }, { name: '사내맞선' }, { name: '재벌X형사' }, { name: '소년시대' }
+const dramas = [
+    { id: 'd1', name: '눈물의 여왕', img: 'https://search.pstatic.net/common?src=https://img.vogue.co.kr/vogue/2024/02/style_65cc0f3a69a0a.jpg' },
+    { id: 'd2', name: '선재 업고 튀어', img: 'https://search.pstatic.net/common?src=https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https://blog.kakaocdn.net/dn/bH0P8O/btsGZ0X7X8o/uK8K8K8K8K8K8K8K8K8K8K8K8K8K8K8K/img.jpg' },
+    { id: 'd3', name: '더 글로리', img: 'https://search.pstatic.net/common?src=https://file.mk.co.kr/meet/neds/2023/03/image_readtop_2023_188981_16781484045391307.jpg' },
+    { id: 'd4', name: '무빙', img: 'https://search.pstatic.net/common?src=https://img.vogue.co.kr/vogue/2023/08/style_64d9f67645f7c.jpg' },
+    { id: 'd5', name: '이상한 변호사 우영우', img: 'https://search.pstatic.net/common?src=https://img.vogue.co.kr/vogue/2022/07/style_62d7c0f1e8e8e.jpg' },
+    { id: 'd6', name: '재벌집 막내아들', img: 'https://search.pstatic.net/common?src=https://img.vogue.co.kr/vogue/2022/11/style_6374a00f898a9.jpg' },
+    { id: 'd7', name: '일타 스캔들', img: 'https://search.pstatic.net/common?src=https://img.hankyung.com/pds/data/202301/20/20230120150119_63ca2bc7569e0_1.jpg' },
+    { id: 'd8', name: '사랑의 불시착', img: 'https://search.pstatic.net/common?src=https://img.hankyung.com/pds/data/201912/09/20191209141011_5dee03eb23661_1.jpg' },
+    { id: 'd9', name: '도깨비', img: 'https://search.pstatic.net/common?src=https://img.hankyung.com/pds/data/201611/22/20161122141011_5833c94380e91_1.jpg' },
+    { id: 'd10', name: '태양의 후예', img: 'https://search.pstatic.net/common?src=https://img.hankyung.com/pds/data/201602/24/20160224141011_56cd1b3b23661_1.jpg' },
+    { id: 'd11', name: '응답하라 1988', img: 'https://search.pstatic.net/common?src=https://img.hankyung.com/pds/data/201511/06/20151106141011_563c1b3b23661_1.jpg' },
+    { id: 'd12', name: '이태원 클라쓰', img: 'https://search.pstatic.net/common?src=https://img.hankyung.com/pds/data/202001/31/20200131141011_5e33c94380e91_1.jpg' },
+    { id: 'd13', name: '빈센조', img: 'https://search.pstatic.net/common?src=https://img.hankyung.com/pds/data/202102/15/20210215141011_602a1b3b23661_1.jpg' },
+    { id: 'd14', name: '나의 아저씨', img: 'https://search.pstatic.net/common?src=https://img.hankyung.com/pds/data/201803/21/20180321141011_5ab2c94380e91_1.jpg' },
+    { id: 'd15', name: '스물다섯 스물하나', img: 'https://search.pstatic.net/common?src=https://img.hankyung.com/pds/data/202202/11/20220211141011_62061b3b23661_1.jpg' },
+    { id: 'd16', name: '시그널', img: 'https://search.pstatic.net/common?src=https://img.hankyung.com/pds/data/201601/22/20160122141011_56a1c94380e91_1.jpg' },
+    { id: 'd17', name: '미스터 션샤인', img: 'https://search.pstatic.net/common?src=https://img.hankyung.com/pds/data/201807/07/20180707141011_5b40c94380e91_1.jpg' },
+    { id: 'd18', name: '슬기로운 의사생활', img: 'https://search.pstatic.net/common?src=https://img.hankyung.com/pds/data/202003/12/20200312141011_5e69c94380e91_1.jpg' },
+    { id: 'd19', name: '부부의 세계', img: 'https://search.pstatic.net/common?src=https://img.hankyung.com/pds/data/202003/27/20200327141011_5e7da0ec13661_1.jpg' },
+    { id: 'd20', name: '비밀의 숲', img: 'https://search.pstatic.net/common?src=https://img.hankyung.com/pds/data/201706/10/20170610141011_593b1b3b23661_1.jpg' },
+    { id: 'd21', name: '킹덤', img: 'https://search.pstatic.net/common?src=https://img.hankyung.com/pds/data/201901/25/20190125141011_5c4a1b3b23661_1.jpg' },
+    { id: 'd22', name: '오징어 게임', img: 'https://search.pstatic.net/common?src=https://img.hankyung.com/pds/data/202109/17/20210917141011_61441b3b23661_1.jpg' },
+    { id: 'd23', name: '수리남', img: 'https://search.pstatic.net/common?src=https://img.hankyung.com/pds/data/202209/09/20220909141011_631a1b3b23661_1.jpg' },
+    { id: 'd24', name: 'D.P.', img: 'https://search.pstatic.net/common?src=https://img.hankyung.com/pds/data/202108/27/20210827141011_61281b3b23661_1.jpg' },
+    { id: 'd25', name: '스위트홈', img: 'https://search.pstatic.net/common?src=https://img.hankyung.com/pds/data/202012/18/20201218141011_5fdb1b3b23661_1.jpg' },
+    { id: 'd26', name: '사내맞선', img: 'https://search.pstatic.net/common?src=https://img.hankyung.com/pds/data/202202/28/20220228141011_621c1b3b23661_1.jpg' },
+    { id: 'd27', name: '재벌X형사', img: 'https://search.pstatic.net/common?src=https://img.hankyung.com/pds/data/202401/26/20240126150119_65b32bc7569e0_1.jpg' },
+    { id: 'd28', name: '소년시대', img: 'https://search.pstatic.net/common?src=https://img.hankyung.com/pds/data/202311/24/20231124150119_65602bc7569e0_1.jpg' },
+    { id: 'd29', name: '별에서 온 그대', img: 'https://search.pstatic.net/common?src=https://img.hankyung.com/pds/data/201312/18/20131218141011_52b11b3b23661_1.jpg' },
+    { id: 'd30', name: '상속자들', img: 'https://search.pstatic.net/common?src=https://img.hankyung.com/pds/data/201310/09/20131009141011_52551b3b23661_1.jpg' },
+    { id: 'd31', name: '뿌리깊은 나무', img: 'https://search.pstatic.net/common?src=https://img.hankyung.com/pds/data/201110/05/20111005141011_4e8c1b3b23661_1.jpg' },
+    { id: 'd32', name: '육룡이 나르샤', img: 'https://search.pstatic.net/common?src=https://img.hankyung.com/pds/data/201510/05/20151005141011_56121b3b23661_1.jpg' }
 ];
 
-const topMovies = [
-    { name: '파묘' }, { name: '서울의 봄' }, { name: '범죄도시4' }, { name: '기생충' },
-    { name: '신과함께' }, { name: '부산행' }, { name: '극한직업' }, { name: '명량' },
-    { name: '베테랑' }, { name: '택시운전사' }, { name: '올드보이' }, { name: '헤어질 결심' },
-    { name: '범죄도시' }, { name: '국제시장' }, { name: '변호인' }, { name: '광해, 왕이 된 남자' },
-    { name: '도둑들' }, { name: '7번방의 선물' }, { name: '암살' }, { name: '괴물' },
-    { name: '왕의 남자' }, { name: '태극기 휘날리며' }, { name: '해운대' }, { name: '실미도' },
-    { name: '인터스텔라' }, { name: '어벤져스: 엔드게임' }, { name: '엘리멘탈' }, { name: '인사이드 아웃 2' }
+const movies = [
+    { id: 'm1', name: '파묘', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/243/2024/02/22/0000056588_001_20240222144301548.jpg' },
+    { id: 'm2', name: '서울의 봄', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2023/11/22/PYH2023112210540000500_P4_20231122143410766.jpg' },
+    { id: 'm3', name: '범죄도시4', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/112/2024/04/24/20240424141011_63ca2bc7569e0_1_20240424143410766.jpg' },
+    { id: 'm4', name: '기생충', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2019/05/30/PYH2019053010540000500_P4_20190530143410766.jpg' },
+    { id: 'm5', name: '신과함께', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2017/12/20/PYH2017122010540000500_P4_20171220143410766.jpg' },
+    { id: 'm6', name: '부산행', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2016/07/20/PYH2016072010540000500_P4_20160720143410766.jpg' },
+    { id: 'm7', name: '극한직업', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2019/01/23/PYH2019012310540000500_P4_20190123143410766.jpg' },
+    { id: 'm8', name: '명량', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2014/07/30/PYH2014073010540000500_P4_20140730143410766.jpg' },
+    { id: 'm9', name: '베테랑', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2015/08/05/PYH2015080510540000500_P4_20150805143410766.jpg' },
+    { id: 'm10', name: '택시운전사', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2017/08/02/PYH2017080210540000500_P4_20170802143410766.jpg' },
+    { id: 'm11', name: '올드보이', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2003/11/21/PYH2003112110540000500_P4_20031121143410766.jpg' },
+    { id: 'm12', name: '헤어질 결심', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2022/06/29/PYH2022062910540000500_P4_20220629143410766.jpg' },
+    { id: 'm13', name: '범죄도시', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2017/10/03/PYH2017100310540000500_P4_20171003143410766.jpg' },
+    { id: 'm14', name: '국제시장', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2014/12/17/PYH2014121710540000500_P4_20141217143410766.jpg' },
+    { id: 'm15', name: '변호인', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2013/12/18/PYH2013121810540000500_P4_20131218143410766.jpg' },
+    { id: 'm16', name: '광해, 왕이 된 남자', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2012/09/13/PYH2012091310540000500_P4_20120913143410766.jpg' },
+    { id: 'm17', name: '도둑들', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2012/07/25/PYH2012072510540000500_P4_20120725143410766.jpg' },
+    { id: 'm18', name: '7번방의 선물', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2013/01/23/PYH2013012310540000500_P4_20130123143410766.jpg' },
+    { id: 'm19', name: '암살', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2015/07/22/PYH2015072210540000500_P4_20150722143410766.jpg' },
+    { id: 'm20', name: '괴물', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2006/07/27/PYH2006072710540000500_P4_20060727143410766.jpg' },
+    { id: 'm21', name: '왕의 남자', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2005/12/29/PYH2005122910540000500_P4_20051229143410766.jpg' },
+    { id: 'm22', name: '태극기 휘날리며', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2004/02/05/PYH2004020510540000500_P4_20040205143410766.jpg' },
+    { id: 'm23', name: '해운대' , img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2009/07/22/PYH2009072210540000500_P4_20090722143410766.jpg' },
+    { id: 'm24', name: '실미도' , img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2003/12/24/PYH2003122410540000500_P4_20031224143410766.jpg' },
+    { id: 'm25', name: '베를린', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2013/01/30/PYH2013013010540000500_P4_20130130143410766.jpg' },
+    { id: 'm26', name: '아저씨', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2010/08/04/PYH2010080410540000500_P4_20100804143410766.jpg' },
+    { id: 'm27', name: '추격자', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2008/02/14/PYH2008021410540000500_P4_20080214143410766.jpg' },
+    { id: 'm28', name: '공동경비구역 JSA', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2000/09/09/PYH2000090910540000500_P4_20000909143410766.jpg' },
+    { id: 'm29', name: '내 머리 속의 지우개', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2004/11/05/PYH2004110510540000500_P4_20041105143410766.jpg' },
+    { id: 'm30', name: '신세계', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2013/02/21/PYH2013022110540000500_P4_20130221143410766.jpg' },
+    { id: 'm31', name: '아가씨', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2016/06/01/PYH2016060110540000500_P4_20160601143410766.jpg' },
+    { id: 'm32', name: '마녀', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/001/2018/06/27/PYH2018062710540000500_P4_20180627143410766.jpg' }
 ];
 
-const topFemaleIdols = [
-    { name: '장원영 (IVE)' }, { name: '카리나 (aespa)' }, { name: '안유진 (IVE)' }, { name: '민지 (NewJeans)' },
-    { name: '해린 (NewJeans)' }, { name: '윈터 (aespa)' }, { name: '제니 (BLACKPINK)' }, { name: '지수 (BLACKPINK)' },
-    { name: '사나 (TWICE)' }, { name: '나연 (TWICE)' }, { name: '설윤 (NMIXX)' }, { name: '미연 ((여자)아이들)' },
-    { name: '아이린 (Red Velvet)' }, { name: '김채원 (LE SSERAFIM)' }, { name: '허윤진 (LE SSERAFIM)' }, { name: '나띠 (KISS OF LIFE)' },
-    { name: '하니 (NewJeans)' }, { name: '다니엘 (NewJeans)' }, { name: '혜인 (NewJeans)' }, { name: '리즈 (IVE)' },
-    { name: '레이 (IVE)' }, { name: '가을 (IVE)' }, { name: '이서 (IVE)' }, { name: '지젤 (aespa)' },
-    { name: '닝닝 (aespa)' }, { name: '로제 (BLACKPINK)' }, { name: '리사 (BLACKPINK)' }, { name: '모모 (TWICE)' }
+const femaleIdols = [
+    { id: 'f1', name: '장원영 (IVE)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929281_001_20231201144301548.jpg' },
+    { id: 'f2', name: '카리나 (aespa)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/108/2023/11/17/0003195655_001_20231117144301548.jpg' },
+    { id: 'f3', name: '안유진 (IVE)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929282_001_20231201144301548.jpg' },
+    { id: 'f4', name: '민지 (NewJeans)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929283_001_20231201144301548.jpg' },
+    { id: 'f5', name: '해린 (NewJeans)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929284_001_20231201144301548.jpg' },
+    { id: 'f6', name: '윈터 (aespa)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/108/2023/11/17/0003195656_001_20231117144301548.jpg' },
+    { id: 'f7', name: '제니 (BLACKPINK)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929285_001_20231201144301548.jpg' },
+    { id: 'f8', name: '지수 (BLACKPINK)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929286_001_20231201144301548.jpg' },
+    { id: 'f9', name: '사나 (TWICE)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929287_001_20231201144301548.jpg' },
+    { id: 'f10', name: '나연 (TWICE)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929288_001_20231201144301548.jpg' },
+    { id: 'f11', name: '설윤 (NMIXX)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929289_001_20231201144301548.jpg' },
+    { id: 'f12', name: '미연 ((여자)아이들)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929290_001_20231201144301548.jpg' },
+    { id: 'f13', name: '아이린 (Red Velvet)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929291_001_20231201144301548.jpg' },
+    { id: 'f14', name: '김채원 (LE SSERAFIM)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929292_001_20231201144301548.jpg' },
+    { id: 'f15', name: '허윤진 (LE SSERAFIM)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929293_001_20231201144301548.jpg' },
+    { id: 'f16', name: '나띠 (KISS OF LIFE)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929294_001_20231201144301548.jpg' },
+    { id: 'f17', name: '하니 (NewJeans)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929295_001_20231201144301548.jpg' },
+    { id: 'f18', name: '다니엘 (NewJeans)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929296_001_20231201144301548.jpg' },
+    { id: 'f19', name: '혜인 (NewJeans)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929297_001_20231201144301548.jpg' },
+    { id: 'f20', name: '리즈 (IVE)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929298_001_20231201144301548.jpg' },
+    { id: 'f21', name: '레이 (IVE)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929299_001_20231201144301548.jpg' },
+    { id: 'f22', name: '가을 (IVE)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929300_001_20231201144301548.jpg' },
+    { id: 'f23', name: '이서 (IVE)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929301_001_20231201144301548.jpg' },
+    { id: 'f24', name: '지젤 (aespa)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929302_001_20231201144301548.jpg' },
+    { id: 'f25', name: '닝닝 (aespa)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929303_001_20231201144301548.jpg' },
+    { id: 'f26', name: '로제 (BLACKPINK)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929304_001_20231201144301548.jpg' },
+    { id: 'f27', name: '리사 (BLACKPINK)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929305_001_20231201144301548.jpg' },
+    { id: 'f28', name: '모모 (TWICE)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929306_001_20231201144301548.jpg' },
+    { id: 'f29', name: '쯔위 (TWICE)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929307_001_20231201144301548.jpg' },
+    { id: 'f30', name: '미나 (TWICE)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929308_001_20231201144301548.jpg' },
+    { id: 'f31', name: '슬기 (Red Velvet)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929309_001_20231201144301548.jpg' },
+    { id: 'f32', name: '조이 (Red Velvet)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929310_001_20231201144301548.jpg' }
 ];
 
-const topMaleIdols = [
-    { name: '차은우 (ASTRO)' }, { name: '뷔 (BTS)' }, { name: '정국 (BTS)' }, { name: '지민 (BTS)' },
-    { name: '현진 (Stray Kids)' }, { name: '필릭스 (Stray Kids)' }, { name: '원빈 (RIIZE)' }, { name: '성찬 (RIIZE)' },
-    { name: '민규 (SEVENTEEN)' }, { name: '정한 (SEVENTEEN)' }, { name: '백현 (EXO)' }, { name: '재현 (NCT)' },
-    { name: '도영 (NCT)' }, { name: '강다니엘' }, { name: '연준 (TXT)' }, { name: '수빈 (TXT)' },
-    { name: '진 (BTS)' }, { name: '슈가 (BTS)' }, { name: '제이홉 (BTS)' }, { name: 'RM (BTS)' },
-    { name: '호시 (SEVENTEEN)' }, { name: '원우 (SEVENTEEN)' }, { name: '에스쿱스 (SEVENTEEN)' }, { name: '승관 (SEVENTEEN)' },
-    { name: '앤톤 (RIIZE)' }, { name: '소희 (RIIZE)' }, { name: '쇼타로 (RIIZE)' }, { name: '은석 (RIIZE)' }
+const maleIdols = [
+    { id: 'male1', name: '차은우 (ASTRO)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929311_001_20231201144301548.jpg' },
+    { id: 'male2', name: '뷔 (BTS)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929312_001_20231201144301548.jpg' },
+    { id: 'male3', name: '정국 (BTS)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929313_001_20231201144301548.jpg' },
+    { id: 'male4', name: '지민 (BTS)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929314_001_20231201144301548.jpg' },
+    { id: 'male5', name: '현진 (Stray Kids)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929315_001_20231201144301548.jpg' },
+    { id: 'male6', name: '필릭스 (Stray Kids)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929316_001_20231201144301548.jpg' },
+    { id: 'male7', name: '원빈 (RIIZE)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929317_001_20231201144301548.jpg' },
+    { id: 'male8', name: '성찬 (RIIZE)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929318_001_20231201144301548.jpg' },
+    { id: 'male9', name: '민규 (SEVENTEEN)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929319_001_20231201144301548.jpg' },
+    { id: 'male10', name: '정한 (SEVENTEEN)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929320_001_20231201144301548.jpg' },
+    { id: 'male11', name: '백현 (EXO)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929321_001_20231201144301548.jpg' },
+    { id: 'male12', name: '재현 (NCT)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929322_001_20231201144301548.jpg' },
+    { id: 'male13', name: '도영 (NCT)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929323_001_20231201144301548.jpg' },
+    { id: 'male14', name: '강다니엘', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929324_001_20231201144301548.jpg' },
+    { id: 'male15', name: '연준 (TXT)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929325_001_20231201144301548.jpg' },
+    { id: 'male16', name: '수빈 (TXT)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929326_001_20231201144301548.jpg' },
+    { id: 'male17', name: '진 (BTS)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929327_001_20231201144301548.jpg' },
+    { id: 'male18', name: '슈가 (BTS)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929328_001_20231201144301548.jpg' },
+    { id: 'male19', name: '제이홉 (BTS)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929329_001_20231201144301548.jpg' },
+    { id: 'male20', name: 'RM (BTS)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929330_001_20231201144301548.jpg' },
+    { id: 'male21', name: '호시 (SEVENTEEN)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929331_001_20231201144301548.jpg' },
+    { id: 'male22', name: '원우 (SEVENTEEN)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929332_001_20231201144301548.jpg' },
+    { id: 'male23', name: '에스쿱스 (SEVENTEEN)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929333_001_20231201144301548.jpg' },
+    { id: 'male24', name: '승관 (SEVENTEEN)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929334_001_20231201144301548.jpg' },
+    { id: 'male25', name: '앤톤 (RIIZE)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929335_001_20231201144301548.jpg' },
+    { id: 'male26', name: '소희 (RIIZE)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929336_001_20231201144301548.jpg' },
+    { id: 'male27', name: '쇼타로 (RIIZE)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929337_001_20231201144301548.jpg' },
+    { id: 'male28', name: '은석 (RIIZE)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929338_001_20231201144301548.jpg' },
+    { id: 'male29', name: '선우 (더보이즈)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929339_001_20231201144301548.jpg' },
+    { id: 'male30', name: '주연 (더보이즈)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929340_001_20231201144301548.jpg' },
+    { id: 'male31', name: '영훈 (더보이즈)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929341_001_20231201144301548.jpg' },
+    { id: 'male32', name: '방찬 (Stray Kids)', img: 'https://search.pstatic.net/common?src=http://imgnews.naver.net/image/144/2023/12/01/0000929342_001_20231201144301548.jpg' }
 ];
-
-// Generator function to reach 128 items
-const generateData = (topItems, categoryLabel) => {
-    const data = topItems.map((item, i) => ({
-        id: `${categoryLabel}${i + 1}`,
-        name: item.name,
-        img: getImg(categoryLabel, item.name),
-        ...(categoryLabel === 'songs' ? { link: getMusicLink(item.name) } : {})
-    }));
-    
-    // Fill the rest up to 128
-    for (let i = topItems.length; i < 128; i++) {
-        const name = `${categoryLabel} 후보 ${i + 1}`;
-        data.push({
-            id: `${categoryLabel}${i + 1}`,
-            name: name,
-            img: getImg(categoryLabel, name),
-            ...(categoryLabel === 'songs' ? { link: getMusicLink(name) } : {})
-        });
-    }
-    return data;
-};
 
 export const gameData = {
-    songs: generateData(topSongs, 'songs'),
-    dramas: generateData(topDramas, 'dramas'),
-    movies: generateData(topMovies, 'movies'),
-    'female-idols': generateData(topFemaleIdols, 'female-idols'),
-    'male-idols': generateData(topMaleIdols, 'male-idols'),
+    songs,
+    dramas,
+    movies,
+    'female-idols': femaleIdols,
+    'male-idols': maleIdols,
 };
