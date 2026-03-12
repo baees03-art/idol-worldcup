@@ -89,6 +89,9 @@ h2 {
     transition: all 0.3s ease;
     width: 300px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .game-card:hover {
@@ -108,6 +111,24 @@ h2 {
     font-size: 1.2rem;
     font-weight: 600;
     margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.listen-btn {
+    background-color: #FF0000; /* YouTube Red */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+    width: 80%;
+}
+
+.listen-btn:hover {
+    background-color: #CC0000;
 }
 
 #winner-display {
@@ -118,6 +139,14 @@ h2 {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.winner-card {
+    width: 400px;
+}
+
+.winner-card img {
+    height: 300px;
 }
 
 #ranking {

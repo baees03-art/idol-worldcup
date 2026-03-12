@@ -92,6 +92,19 @@ function createGameCard(item) {
     const card = document.createElement('div');
     card.className = 'game-card';
     card.innerHTML = `<img src="${item.img}" alt="${item.name}"><p>${item.name}</p>`;
+    
+    // Add Listen button for songs
+    if (currentCategory === 'songs' && item.link) {
+        const listenBtn = document.createElement('button');
+        listenBtn.className = 'listen-btn';
+        listenBtn.innerHTML = '🎧 들어보기';
+        listenBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent selecting the card
+            window.open(item.link, '_blank');
+        });
+        card.appendChild(listenBtn);
+    }
+
     card.addEventListener('click', () => {
         nextRoundItems.push(item);
         displayNextMatch();
@@ -101,12 +114,24 @@ function createGameCard(item) {
 
 function displayWinner(winner) {
     const winnerContainer = document.getElementById('winner-container');
-    winnerContainer.innerHTML = `
-        <div class="game-card">
-            <img src="${winner.img}" alt="${winner.name}">
-            <p>${winner.name}</p>
-        </div>
-    `;
+    winnerContainer.innerHTML = '';
+    
+    const card = document.createElement('div');
+    card.className = 'game-card winner-card';
+    card.innerHTML = `<img src="${winner.img}" alt="${winner.name}"><p>${winner.name}</p>`;
+    
+    if (currentCategory === 'songs' && winner.link) {
+        const listenBtn = document.createElement('button');
+        listenBtn.className = 'listen-btn';
+        listenBtn.innerHTML = '🎧 들어보기';
+        listenBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            window.open(winner.link, '_blank');
+        });
+        card.appendChild(listenBtn);
+    }
+    
+    winnerContainer.appendChild(card);
     gameBoard.classList.add('hidden');
     winnerDisplay.classList.remove('hidden');
 
