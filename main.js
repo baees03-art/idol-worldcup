@@ -122,8 +122,9 @@ function createGameCard(item) {
             // Stop other players
             stopAllPlayers();
             
+            const start = item.start || 0;
             const iframe = document.createElement('iframe');
-            iframe.src = `https://www.youtube.com/embed/${item.vid}?autoplay=1`;
+            iframe.src = `https://www.youtube.com/embed/${item.vid}?autoplay=1&start=${start}`;
             iframe.allow = "autoplay; encrypted-media";
             iframe.setAttribute('allowfullscreen', '');
             imgContainer.innerHTML = '';
@@ -165,8 +166,9 @@ function displayWinner(winner) {
         listenBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             if (imgContainer.querySelector('iframe')) return;
+            const start = winner.start || 0;
             const iframe = document.createElement('iframe');
-            iframe.src = `https://www.youtube.com/embed/${winner.vid}?autoplay=1`;
+            iframe.src = `https://www.youtube.com/embed/${winner.vid}?autoplay=1&start=${start}`;
             iframe.allow = "autoplay; encrypted-media";
             iframe.setAttribute('allowfullscreen', '');
             imgContainer.innerHTML = '';
