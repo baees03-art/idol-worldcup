@@ -8,6 +8,7 @@ const winnerDisplay = document.getElementById('winner-display');
 const categoryButtons = document.querySelectorAll('.category-btn');
 const roundButtons = document.querySelectorAll('.round-btn');
 const restartButton = document.getElementById('restart-btn');
+const backButton = document.getElementById('back-btn');
 
 let currentCategory = '';
 let currentRound = 0;
@@ -16,6 +17,16 @@ let roundItems = [];
 let nextRoundItems = [];
 let round = 1;
 
+function resetGame() {
+    winnerDisplay.classList.add('hidden');
+    gameBoard.classList.add('hidden');
+    roundSelection.classList.add('hidden');
+    categorySelection.classList.remove('hidden');
+    round = 1;
+    nextRoundItems = [];
+    currentData = [];
+    roundItems = [];
+}
 
 categoryButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -33,13 +44,8 @@ roundButtons.forEach(button => {
     });
 });
 
-restartButton.addEventListener('click', () => {
-    winnerDisplay.classList.add('hidden');
-    categorySelection.classList.remove('hidden');
-    round = 1;
-    nextRoundItems = [];
-    currentData = [];
-});
+restartButton.addEventListener('click', resetGame);
+backButton.addEventListener('click', resetGame);
 
 function startGame() {
     currentData = [...gameData[currentCategory]];
