@@ -1,11 +1,100 @@
-// Using Picsum for better placeholder images as via.placeholder.com can be unreliable
-const placeholderUrl = (id, category) => `https://picsum.photos/seed/${category}${id}/300/200`;
+// Using consistent placeholder images with relevant seeds for better visuals
+const getImg = (category, name) => `https://picsum.photos/seed/${category}_${encodeURIComponent(name)}/300/200`;
 
-const songs = Array.from({ length: 128 }, (_, i) => ({ id: `s${i+1}`, name: `노래 ${i+1}`, img: placeholderUrl(i+1, 'song') }));
-const dramas = Array.from({ length: 128 }, (_, i) => ({ id: `d${i+1}`, name: `드라마 ${i+1}`, img: placeholderUrl(i+1, 'drama') }));
-const movies = Array.from({ length: 128 }, (_, i) => ({ id: `m${i+1}`, name: `영화 ${i+1}`, img: placeholderUrl(i+1, 'movie') }));
-const femaleIdols = Array.from({ length: 128 }, (_, i) => ({ id: `f${i+1}`, name: `여자 아이돌 ${i+1}`, img: placeholderUrl(i+1, 'female') }));
-const maleIdols = Array.from({ length: 128 }, (_, i) => ({ id: `male${i+1}`, name: `남자 아이돌 ${i+1}`, img: placeholderUrl(i+1, 'male') }));
+const songs = [
+    { id: 's1', name: '밤양갱 - 비비(BIBI)', img: getImg('song', 'bibi') },
+    { id: 's2', name: 'Love wins all - 아이유(IU)', img: getImg('song', 'iu') },
+    { id: 's3', name: 'To. X - 태연(TAEYEON)', img: getImg('song', 'taeyeon') },
+    { id: 's4', name: '첫 만남은 계획대로 되지 않아 - TWS', img: getImg('song', 'tws') },
+    { id: 's5', name: 'EASY - LE SSERAFIM', img: getImg('song', 'lesserafim') },
+    { id: 's6', name: 'Fate - (여자)아이들', img: getImg('song', 'idle') },
+    { id: 's7', name: 'Plot Twist - TWS', img: getImg('song', 'tws_plot') },
+    { id: 's8', name: 'Perfect Night - LE SSERAFIM', img: getImg('song', 'perfect_night') },
+    { id: 's9', name: 'Smart - LE SSERAFIM', img: getImg('song', 'smart') },
+    { id: 's10', name: 'Sticky - KISS OF LIFE', img: getImg('song', 'kiof') },
+    { id: 's11', name: 'Supernova - aespa', img: getImg('song', 'aespa_super') },
+    { id: 's12', name: 'How Sweet - NewJeans', img: getImg('song', 'nj_sweet') },
+    { id: 's13', name: 'Super Shy - NewJeans', img: getImg('song', 'nj_shy') },
+    { id: 's14', name: 'Seven - Jungkook', img: getImg('song', 'jk_seven') },
+    { id: 's15', name: 'Cruel Summer - Taylor Swift', img: getImg('song', 'taylor') },
+    { id: 's16', name: 'Greedy - Tate McRae', img: getImg('song', 'tate') },
+].slice(0, 16); // Keeping it at 16 for a quick start, can be expanded
+
+const dramas = [
+    { id: 'd1', name: '눈물의 여왕', img: getImg('drama', 'queen_of_tears') },
+    { id: 'd2', name: '선재 업고 튀어', img: getImg('drama', 'lovely_runner') },
+    { id: 'd3', name: '더 글로리', img: getImg('drama', 'the_glory') },
+    { id: 'd4', name: '무빙', img: getImg('drama', 'moving') },
+    { id: 'd5', name: '이상한 변호사 우영우', img: getImg('drama', 'attorney_woo') },
+    { id: 'd6', name: '재벌집 막내아들', img: getImg('drama', 'reborn_rich') },
+    { id: 'd7', name: '일타 스캔들', img: getImg('drama', 'crash_course') },
+    { id: 'd8', name: '사랑의 불시착', img: getImg('drama', 'cloy') },
+    { id: 'd9', name: '도깨비', img: getImg('drama', 'goblin') },
+    { id: 'd10', name: '태양의 후예', img: getImg('drama', 'descendants') },
+    { id: 'd11', name: '응답하라 1988', img: getImg('drama', 'reply1988') },
+    { id: 'd12', name: '이태원 클라쓰', img: getImg('drama', 'itaewon') },
+    { id: 'd13', name: '빈센조', img: getImg('drama', 'vincenzo') },
+    { id: 'd14', name: '나의 아저씨', img: getImg('drama', 'my_mister') },
+    { id: 'd15', name: '스물다섯 스물하나', img: getImg('drama', 'twentyfive') },
+    { id: 'd16', name: '시그널', img: getImg('drama', 'signal') },
+];
+
+const movies = [
+    { id: 'm1', name: '파묘', img: getImg('movie', 'exhuma') },
+    { id: 'm2', name: '서울의 봄', img: getImg('movie', '1212_the_day') },
+    { id: 'm3', name: '범죄도시4', img: getImg('movie', 'roundup4') },
+    { id: 'm4', name: '기생충', img: getImg('movie', 'parasite') },
+    { id: 'm5', name: '신과함께', img: getImg('movie', 'along_with_gods') },
+    { id: 'm6', name: '부산행', img: getImg('movie', 'train_to_busan') },
+    { id: 'm7', name: '극한직업', img: getImg('movie', 'extreme_job') },
+    { id: 'm8', name: '명량', img: getImg('movie', 'roaring_currents') },
+    { id: 'm9', name: '베테랑', img: getImg('movie', 'veteran') },
+    { id: 'm10', name: '택시운전사', img: getImg('movie', 'taxi_driver') },
+    { id: 'm11', name: '올드보이', img: getImg('movie', 'oldboy') },
+    { id: 'm12', name: '헤어질 결심', img: getImg('movie', 'decision_to_leave') },
+    { id: 'm13', name: '인터스텔라', img: getImg('movie', 'interstellar') },
+    { id: 'm14', name: '어벤져스: 엔드게임', img: getImg('movie', 'avengers') },
+    { id: 'm15', name: '엘리멘탈', img: getImg('movie', 'elemental') },
+    { id: 'm16', name: '인사이드 아웃 2', img: getImg('movie', 'inside_out_2') },
+];
+
+const femaleIdols = [
+    { id: 'f1', name: '장원영 (IVE)', img: getImg('female-idol', 'wonyoung') },
+    { id: 'f2', name: '카리나 (aespa)', img: getImg('female-idol', 'karina') },
+    { id: 'f3', name: '안유진 (IVE)', img: getImg('female-idol', 'yujin') },
+    { id: 'f4', name: '민지 (NewJeans)', img: getImg('female-idol', 'minji') },
+    { id: 'f5', name: '해린 (NewJeans)', img: getImg('female-idol', 'haerin') },
+    { id: 'f6', name: '윈터 (aespa)', img: getImg('female-idol', 'winter') },
+    { id: 'f7', name: '제니 (BLACKPINK)', img: getImg('female-idol', 'jennie') },
+    { id: 'f8', name: '지수 (BLACKPINK)', img: getImg('female-idol', 'jisoo') },
+    { id: 'f9', name: '사나 (TWICE)', img: getImg('female-idol', 'sana') },
+    { id: 'f10', name: '나연 (TWICE)', img: getImg('female-idol', 'nayeon') },
+    { id: 'f11', name: '설윤 (NMIXX)', img: getImg('female-idol', 'sullyoon') },
+    { id: 'f12', name: '미연 ((여자)아이들)', img: getImg('female-idol', 'miyeon') },
+    { id: 'f13', name: '아이린 (Red Velvet)', img: getImg('female-idol', 'irene') },
+    { id: 'f14', name: '김채원 (LE SSERAFIM)', img: getImg('female-idol', 'chaewon') },
+    { id: 'f15', name: '허윤진 (LE SSERAFIM)', img: getImg('female-idol', 'yunjin') },
+    { id: 'f16', name: '나띠 (KISS OF LIFE)', img: getImg('female-idol', 'natty') },
+];
+
+const maleIdols = [
+    { id: 'male1', name: '차은우 (ASTRO)', img: getImg('male-idol', 'eunwoo') },
+    { id: 'male2', name: '뷔 (BTS)', img: getImg('male-idol', 'v') },
+    { id: 'male3', name: '정국 (BTS)', img: getImg('male-idol', 'jk') },
+    { id: 'male4', name: '지민 (BTS)', img: getImg('male-idol', 'jimin') },
+    { id: 'male5', name: '현진 (Stray Kids)', img: getImg('male-idol', 'hyunjin') },
+    { id: 'male6', name: '필릭스 (Stray Kids)', img: getImg('male-idol', 'felix') },
+    { id: 'male7', name: '원빈 (RIIZE)', img: getImg('male-idol', 'wonbin') },
+    { id: 'male8', name: '성찬 (RIIZE)', img: getImg('male-idol', 'sungchan') },
+    { id: 'male9', name: '민규 (SEVENTEEN)', img: getImg('male-idol', 'mingyu') },
+    { id: 'male10', name: '정한 (SEVENTEEN)', img: getImg('male-idol', 'jeonghan') },
+    { id: 'male11', name: '백현 (EXO)', img: getImg('male-idol', 'baekhyun') },
+    { id: 'male12', name: '재현 (NCT)', img: getImg('male-idol', 'jaehyun') },
+    { id: 'male13', name: '도영 (NCT)', img: getImg('male-idol', 'doyoung') },
+    { id: 'male14', name: '강다니엘', img: getImg('male-idol', 'daniel') },
+    { id: 'male15', name: '연준 (TXT)', img: getImg('male-idol', 'yeonjun') },
+    { id: 'male16', name: '수빈 (TXT)', img: getImg('male-idol', 'soobin') },
+];
 
 export const gameData = {
     songs,
