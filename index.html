@@ -1,14 +1,53 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello World</title>
-  <link href='/style.css' rel='stylesheet'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이상형 월드컵</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Hello, world!</h1>
-  <button onclick="console.log('hello');">Press me</button>
-  <script defer type="text/javascript" src="/main.js"></script>
+    <header>
+        <h1>이상형 월드컵</h1>
+    </header>
+    <main>
+        <section id="category-selection">
+            <h2>카테고리를 선택하세요</h2>
+            <div class="button-container">
+                <button class="category-btn" data-category="songs">노래</button>
+                <button class="category-btn" data-category="dramas">드라마</button>
+                <button class="category-btn" data-category="movies">영화</button>
+                <button class="category-btn" data-category="female-idols">여자 아이돌</button>
+                <button class="category-btn" data-category="male-idols">남자 아이돌</button>
+            </div>
+        </section>
+
+        <section id="round-selection" class="hidden">
+            <h2>강 수를 선택하세요</h2>
+            <div class="button-container">
+                <button class="round-btn" data-round="16">16강</button>
+                <button class="round-btn" data-round="32">32강</button>
+                <button class="round-btn" data-round="64">64강</button>
+                <button class="round-btn" data-round="128">128강</button>
+            </div>
+        </section>
+
+        <section id="game-board" class="hidden">
+            <h2 id="round-title"></h2>
+            <div id="game-container"></div>
+        </section>
+
+        <section id="winner-display" class="hidden">
+            <h2>최종 우승</h2>
+            <div id="winner-container"></div>
+            <button id="restart-btn">다시하기</button>
+        </section>
+
+        <section id="ranking">
+            <h2>명예의 전당</h2>
+            <div id="ranking-container"></div>
+        </section>
+    </main>
+    <script src="main.js" type="module"></script>
 </body>
 </html>
